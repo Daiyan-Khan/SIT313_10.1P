@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const cors = require('cors'); // To handle cross-origin requests from the frontend
+require('dotenv').config();
 
 const app = express();
 
@@ -19,13 +20,16 @@ app.post('/subscribe', (req, res) => {
   }
 
   // Sending welcome email (optional)
-  const transporter = nodemailer.createTransport({
-    service: 'gmail', // You can use any other service, e.g., Outlook, or a transactional email service
-    auth: {
-      user: 'iamdaiyankhan@gmail.com',
-      pass: 'rszf mtim dctg qbcd', // You should use environment variables to store sensitive info
-    },
-  });
+  const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER, // Access the email user from .env
+    pass: process.env.EMAIL_PASS, // Access the email password from .env
+  },
+});
+
 
   const mailOptions = {
     from: 'iamdaiyankhan@gmail.com',
